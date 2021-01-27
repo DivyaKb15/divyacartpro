@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+        {{product.desc |truncatewords:155 }}
+{% endblock %}
+
+
+
+{% block title %}
+        {{product.name }}-Choose&Track
+{% endblock %}
+
+
+
+{% block content %}
+{% include 'nav2.html' %}
+
+<form action="register" method="post"  class="text-center">
+    {% csrf_token %}
+    <br>
+    <br>
+    <input type="text" name="username" placeholder="username"  class="text-center"><br><br>
+
+    <input type="text" name="first_name" placeholder="first_name"  class="text-center"><br><br>
+
+    <input type="text" name="last_name" placeholder="last_name"  class="text-center"><br><br>
+
+    <input type="email" name="email" placeholder="email"  class="text-center"><br><br>
+
+    <input type="password" name="password1" placeholder="password"  class="text-center"><br><br>
+
+    <input type="password" name="password2" placeholder="password"  class="text-center"><br><br>
+
+    <input type="submit" value="REGISTER" class="btn btn-success" ><br>
+
+
+</form><br><br>
+<div>
+   {% for message in messages %}
+    <h4>{{message}}</h4>
+    {% endfor %}
+</div>
+<br>
+<br>
+<!--{% include 'footer2.html' %}-->
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+        {{product.desc |truncatewords:155 }}
+{% endblock %}
+
+
+
+{% block title %}
+        {{product.name }}-Choose&Track
+{% endblock %}
+
+
+
+{% block content %}
+{% include 'nav2.html' %}
+
+<div class="row my_pro_row_class">
+    <div class="mx-auto">
+        <p><a href="{% url 'Ecommerceapp:allProdCat' %}" style="color:blue;font-size:17px;">HOME</a>|<a href="{{product.category.get_url}}" style="font-size:15px;color:black;">{{product.name}}</a> </p>
+    </div>
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+                <div style="min-width:18rem;">
+                <img src="{{product.image.url}}" alt="{{product.name}}" style="width:220px;height:220px;">
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+                <h1 class="my_prod_title">{{product.name}}</h1>
+                <p class="my_title"></p>
+                <p class="text-justify my_prod_text">{{product.desc}}</p>
+                <p>₹{{product.price}}</p>
+                {% if product.stock <= 0 %}
+                    <p class="text-justify my_prod_text"><b>OUT OF STOCK</b></p>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'cartapp:add_cart' product.id %}">ADD TO CART</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    {% include 'footer2.html' %}-->
+
+{% endblock %}

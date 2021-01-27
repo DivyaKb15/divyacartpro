@@ -1,0 +1,53 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:80px;">
+    <img src="{% static 'img/logo5.png' %}" alt='this is the project logo' style="width:60px;height:60px;">
+
+    <!--  <a class="navbar-brand" href="#">Navbar</a>-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">VIEW CATEGORIES</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'Ecommerceapp:allProdCat' %}">ALL PRODUCTS</a>
+                    {% for cat in links %}
+                    <a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a>
+                    {% endfor %}
+                    <!--          <div class="dropdown-divider"></div>-->
+                    <!--          <a class="dropdown-item" href="#">Something else here</a>-->
+                    <!--        </div>-->
+            </li>
+
+            <!--
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+            -->         {% if item_count > 0 %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'cartapp:cart_detail'%}"><i class="fas fa-cart-arrow-down">{{item_count}}</i></a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item">
+                {%if user.is_authenticated %}
+                    <li>Welcome {{user.username}}</li>
+                    <a class="btn btn-primary" href="{% url 'accounts:logout' %}">SIGN OUT</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'accounts:register' %}">SIGN UP</a>
+                    <a class="btn btn-primary" href="{% url 'accounts:login' %}">SIGN IN</a>
+                {% endif %}
+
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="{% url 'search_app:searchResult' %}" method="get">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+</nav>

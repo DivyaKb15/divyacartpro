@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+        {{product.desc |truncatewords:155 }}
+{% endblock %}
+
+
+
+{% block title %}
+        {{product.name }}-Choose&Track
+{% endblock %}
+
+
+
+{% block content %}
+{% include 'nav2.html' %}
+
+
+<form class="text-center" action="login" method="post">
+    {% csrf_token %}
+    <br>
+    <br>
+
+    <input type="text" name="username" placeholder="username" class="text-center"><br><br>
+    <input type="password" name="password" placeholder="password" class="text-center"><br><br>
+    <input type="submit" value="SIGN IN"  class="btn btn-success" ><br>
+
+</form><br><br>
+
+<br>
+<br>
+<!--{% include 'footer2.html' %}-->
+{% endblock %}
